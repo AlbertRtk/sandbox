@@ -8,6 +8,6 @@ while swapped == True:
     for i, v in enumerate(list[:-1]):
         if list[i] > list[i+1]:
             list[i], list[i+1] = list[i+1], list[i]
-            swapped = True  # swapping occured
+            swapped = True  # swapping occurred
 
 print("Sorted list: {}\n".format(list))
