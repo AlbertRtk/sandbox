@@ -23,20 +23,21 @@ words = {'Car': ['Mercedes', 'Volkswagen', 'Fiat', 'Ford', 'BMW'],
          'Country': ['Poland', 'Croatia', 'Germany', 'Russia'],
         }
 
-# number of lifes
+# number of lives
 life = 10
 
-# choose cathegory
+# choose category
 i = random.randint(0, len(words)-1)
 cat = list(words.keys())[i]
 
-# choose password from cathegory
+# choose password from category
 i = random.randint(0, len(words[cat])-1)
 word = words[cat][i].upper()
 
-# list of used letters
+# list of uncovered letters
 used = []
-# covered password and number of unvovered letteres
+
+# covered password and number of uncovered letters
 password, uncov = covered(word, used)
 
 # game
