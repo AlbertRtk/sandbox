@@ -41,9 +41,9 @@ def main():
     # finish
     print('_' * 48)
     if uncov == 0:
-        print("\nYes, it's {}! You won!".format(word))
+        print("\nYes, it's {}! You won!\n".format(word))
     else:
-        print("\nGAME OVER")
+        print("\nGAME OVER\n")
 
 
 # returns random category and word 
@@ -69,13 +69,13 @@ def choose_psw():
 # returns string where uncovered letteres are reprezented by '_'
 # psw - password to hide, lts - list of uncovered letters
 def covered(psw, lts):
-    prt = ''  # covered password
+    prt = ""  # covered password
     c = 0     # number of covered letters
     for l in psw:
         if l in lts:
-            prt = prt + l + ' '
+            prt = prt + l + " "
         else:
-            prt = prt + '_ '
+            prt = prt + "_ "
             c += 1
     return prt, c
 
