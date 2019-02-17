@@ -9,7 +9,7 @@ using namespace std;
 
 int main()
 {
-	Cuboid cubo(3, 4, 5);
+	Cuboid cubo(3, 4, 1);
     cout << "V = " << cubo.volume() << endl; 
 	return 0;
 }

@@ -1,6 +1,2 @@
-*.sln
 Debug
 .vs
-*.vcproj
-*.filter
-*.user
