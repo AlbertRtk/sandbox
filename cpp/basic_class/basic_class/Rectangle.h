@@ -3,7 +3,6 @@
 class Rectangle {
 private:
 	int width, height;
-
 public:
 	Rectangle();
 	Rectangle(int, int);
