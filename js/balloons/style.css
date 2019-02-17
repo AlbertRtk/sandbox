@@ -1,0 +1,70 @@
+body {
+    background-color: lightgray;
+}
+
+p.white {
+	background-color: black;
+	color: white;
+	font-size: 24px;
+	width: 192px;
+	float: left;
+	margin: 3px;
+	padding: 2px;
+	z-index: 2;
+}
+
+.center {
+	margin: auto;
+}
+
+.statusbar {
+    position: relative;
+    height: 60px;
+    width: 606px;
+    background-color: black;
+    z-index: 1;
+    color: white;
+}
+
+.timebar{
+    position: absolute;
+    top: 45px;
+    left: 3px;
+    height: 12px;
+    width: 600px;
+    background-color: red;
+}
+
+.sky {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 460px;
+    width: 600px;
+    background-color: skyblue;
+    border: solid black;
+    border-width: 0 3px 0 3px;
+	color: black;
+	font-size: 72px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.ground {
+    position: relative;
+    height: 150px;
+    width: 600px;
+    background-color: forestgreen;
+    border: solid black;
+    border-width: 0 3px 3px 3px;
+    z-index: 1;
+}
+
+.balloon {
+    position: absolute;
+    bottom: -60px;
+    height: 60px;
+    width: 60px;
+    border-radius: 30px;
+}
+
