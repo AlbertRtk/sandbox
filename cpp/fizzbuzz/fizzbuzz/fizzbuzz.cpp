@@ -20,10 +20,14 @@ void fizzbuzz(int i) {
 	cout << endl;
 }
 
+void fizzbuzz2(int i) {
+	cout << i << ": " << ((i % 3 == 0 && i % 5 == 0) ? "FizzBuzz" : (i % 3 == 0) ? "Fizz" : (i % 5 == 0) ? "Buzz" : "") << endl;
+}
+
 int main()
 {
 	for (int i = 1; i <= 100; i++) {
-		fizzbuzz(i);
+		fizzbuzz2(i);
 	}
 	return 0;
 }
