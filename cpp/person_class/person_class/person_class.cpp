@@ -14,12 +14,12 @@ private:
 	int age;
 public:
 	Person();
-	Person(string&, string&, int);
+	Person(const string&, const string&, int);
 	void print();
 };
 
 Person::Person() : name(string("unknown")), surname(string("unknown")), age(0) {}
-Person::Person(string& p_name, string& p_surname, int p_age) : name(p_name), surname(p_surname), age(p_age) {}
+Person::Person(const string& p_name, const string& p_surname, int p_age) : name(p_name), surname(p_surname), age(p_age) {}
 
 void Person::print() {
 	cout << name << " " << surname << ", " << age << endl;
@@ -31,14 +31,15 @@ class Employee : public Person {
 private:
 	string department, position;
 public:
-	Employee(string&, string&, int e_age, string&, string&);
+	Employee(const string&, const string&, int e_age, const string&, const string&);
 	void print();
 };
 
-Employee::Employee(string& e_name, string& e_surname, int e_age, string& e_department, string& e_position) : Person(e_name, e_surname, e_age) {
-	department = e_department;
-	position = e_position;
-}
+Employee::Employee(const string& e_name, const string& e_surname, int e_age, const string& e_department, const string& e_position) 
+	: Person(e_name, e_surname, e_age) {
+		department = e_department;
+		position = e_position;
+	}
 
 void Employee::print() {
 	Person::print();
