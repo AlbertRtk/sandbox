@@ -8,50 +8,96 @@
 using namespace std;
 
 
+
+
+
 class Person {
 private:
 	string name, surname;
-	int age;
+	static int count;
 public:
 	Person();
-	Person(const string&, const string&, int);
-	void print();
+	Person(const string &, const string &);
+	virtual void print();
+	static int get_count();
+	~Person();
 };
 
-Person::Person() : name(string("unknown")), surname(string("unknown")), age(0) {}
-Person::Person(const string& p_name, const string& p_surname, int p_age) : name(p_name), surname(p_surname), age(p_age) {}
+Person::Person() : name("unknown"), surname("unknown") {
+	count++;
+	cout << "New person: ";
+	this->print();
+}
+
+Person::Person(const string &fname, const string &sname) : name(fname), surname(sname) {
+	count++;
+	cout << "New person: ";
+	this->print();
+}
+
+Person::~Person() {
+	cout << "Deleted: ";
+	this->print();
+	count--;
+}
 
 void Person::print() {
-	cout << name << " " << surname << ", " << age << endl;
+	cout << name << " " << surname << endl;
 }
+
+int Person::count = 0;
+
+int Person::get_count() { return count; }
+
+
 
 
 
 class Employee : public Person {
 private:
-	string department, position;
+	string position;
 public:
-	Employee(const string&, const string&, int e_age, const string&, const string&);
+	Employee() : Person(), position("unknown") { cout << "Position: " << position << endl; };
+	Employee(const string &, const string &, const string &);
 	void print();
 };
 
-Employee::Employee(const string& e_name, const string& e_surname, int e_age, const string& e_department, const string& e_position) 
-	: Person(e_name, e_surname, e_age) {
-		department = e_department;
-		position = e_position;
-	}
+Employee::Employee(const string &fname, const string &sname, const string &pos) : Person(fname, sname) {
+	position = pos;
+	cout << "Position: " << position << endl;
+}
 
 void Employee::print() {
 	Person::print();
-	cout << department << ", " << position << endl;
+	cout << position << endl;
 }
+
+
 
 
 
 int main()
 {
-	string name("Jan"), surname("Kowalski"), department("IT"), position("developer");
-	Employee e(name, surname, 30, department, position);
-	e.print();
-}
+	cout << "Count " << Person::get_count() << endl << endl;
 
+	Person me("Albert", "Ratajczak");
+	cout << "Count " << Person::get_count() << endl << endl;
+
+	Person someone("Zenon", "Nowak");
+	cout << "Count " << Person::get_count() << endl << endl;
+
+	Person* someone1 = new Person;
+	cout << "Count " << Person::get_count() << endl << endl;
+	delete(someone1);
+	cout << "Count " << Person::get_count() << endl << endl;
+
+	Employee someone2("Jan", "Kowalski", "developer");
+	cout << "Count " << Person::get_count() << endl << endl;
+
+	Person* someone3;
+	someone3 = &someone2;
+	someone3->print();
+	cout << "Count " << Person::get_count() << endl << endl;
+
+	cout << "THE END" << endl << endl;
+}
