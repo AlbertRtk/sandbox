@@ -2,6 +2,7 @@ Debug
 .vs
 
 pch.h
+pch.cpp
 .sln
 .vcxproj
 .filters
