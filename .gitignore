@@ -1,5 +1,7 @@
 Debug
 .vs
+
+pch.h
 .sln
 .vcxproj
 .filters
