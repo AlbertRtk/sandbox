@@ -3,7 +3,7 @@ Debug
 
 pch.h
 pch.cpp
-.sln
-.vcxproj
-.filters
-.user
+*.sln
+*.vcxproj
+*.filters
+*.user
