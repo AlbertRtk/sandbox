@@ -25,7 +25,7 @@ int main() {
 	b = b >> 1;
 	printf("b >> 1 = %d \n", b);
 	
-	printf("1 << 3 = %d \n", 1 << 3);
+	printf("1 << 7 = %d \n", 1 << 7);
 
     return 0;
 }
