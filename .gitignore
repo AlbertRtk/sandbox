@@ -7,3 +7,5 @@ pch.cpp
 *.vcxproj
 *.filters
 *.user
+
+*.exe
