@@ -33,12 +33,12 @@ char * binary(unsigned int num) {
 	
 	char * b;							// pointer to array with binary representation
 	int i, n = 1;						// loop iterator, array length
-	b = (char *) malloc(n);				// initaial memory allocation 
+	b = malloc(n);				// initaial memory allocation 
 	b[0] = '\0';						// last element of the array
 	
 	do {
 		n += 1;							// increasing array length
-		b = (char *) realloc(b, n);		// memory reallocation
+		b = realloc(b, n);		// memory reallocation
 		for(i=n-1; i>0; i--) {
 			b[i] = b[i-1];				// right-shifting of array elements
 		}
