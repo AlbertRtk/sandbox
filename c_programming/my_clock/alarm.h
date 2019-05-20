@@ -6,25 +6,28 @@
 #define SET 1
 #define ON 2
 
-/* aet alarm time and state */
-extern struct tm alarmTime;
-extern char alarmStatus;
-
-/* functions comaparing two given times with minute precision:
-returns 1 if HH:MM==HH:MM, if not - 0 */
-char eqHM(struct tm *, struct tm *);
+/* alarm time and state */
+struct alarm {
+	int tm_hour;
+	int tm_min;
+	char status;
+};
 
 /*function setting given alarm time, and status to SET */
-void setAlarm(char, char);
+void setAlarm(struct alarm *, char, char, char);
 
-/* function disables alarm */
-void disableAlarm();
+/* function toggles alarm state */
+void toggleAlarm(struct alarm *);
 
 /* function retrns string indicating alarm state: OFF, SET, ON */
-const char *getAlarmStatus();
+const char *getAlarmStatus(struct alarm *);
+
+/* functions comaparing given times and alarm time with minute precision:
+returns 1 if HH:MM==HH:MM, if not - 0 */
+char timeForAlarm(struct tm *, struct alarm *);
 
 /* rings an alarm when set time is reached and status is 1 or 2;
 if status is 1, sets it to 2 when the alarm time is reached */
-void alarm(struct tm *);
+void alarm(struct tm *, struct alarm *);
 
 #endif

@@ -8,7 +8,11 @@
 int main (void) {
    time_t eTime;			// time from Epoch
    struct tm *locTime;		// structure holding readable time info
+   struct alarm alarm_1;
+   struct alarm *myAlarm = &alarm_1;
    char option; 
+   
+   setAlarm(myAlarm, 7, 0, OFF);
    
    printf("Date:\t\tCurrent time:\t\tAlarm time:\tAtarm state:\n");
    while(1) {
@@ -21,17 +25,21 @@ int main (void) {
 		   		"\r%4d-%02d-%02d\t%02d:%02d:%02d\t\t%02d:%02d\t\t%s", 
 				(*locTime).tm_year+1900, (*locTime).tm_mon+1, (*locTime).tm_mday,
 		   		(*locTime).tm_hour, (*locTime).tm_min, (*locTime).tm_sec,
-		   		alarmTime.tm_hour, alarmTime.tm_min,
-		   		getAlarmStatus()
+		   		(*myAlarm).tm_hour, (*myAlarm).tm_min,
+		   		getAlarmStatus(myAlarm)
 		);
    		fflush(stdout);
    		
    		if(kbhit()) {
    			option = getch();
-   			if(option=='a') setAlarm(11, 25);
-		   }
+   			switch(option){
+   				case 'a':	
+   					toggleAlarm(myAlarm);
+   					break;
+    	    }
+		}
 		
-   		alarm(locTime);
+   		alarm(locTime, myAlarm);
    }
    
    return(0);

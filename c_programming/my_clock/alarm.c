@@ -2,27 +2,18 @@
 #include "alarm.h"
 
 
-struct tm alarmTime;
-char alarmStatus = OFF;
-
-
-char eqHM(struct tm *time1, struct tm *time2) {
-	return ((*time1).tm_hour==(*time2).tm_hour && (*time1).tm_min==(*time2).tm_min) ? 1 : 0;
+void setAlarm(struct alarm *thisAlarm, char hour, char minute, char status) {
+	(*thisAlarm).status = status;
+	(*thisAlarm).tm_hour = (int) hour;
+	(*thisAlarm).tm_min = (int) minute;
 }
 
-
-void setAlarm(char hour, char minute) {
-	alarmStatus = SET;
-	alarmTime.tm_hour = (int) hour;
-	alarmTime.tm_min = (int) minute;
+void toggleAlarm(struct alarm *thisAlarm) {
+	(*thisAlarm).status = (*thisAlarm).status!=OFF ? OFF : SET;
 }
 
-void disableAlarm() {
-	alarmStatus = OFF;
-}
-
-const char *getAlarmStatus() {
-	switch(alarmStatus) {
+const char *getAlarmStatus(struct alarm *thisAlarm) {
+	switch((*thisAlarm).status) {
 		case OFF:
 			return "OFF";
 		case SET:
@@ -32,10 +23,16 @@ const char *getAlarmStatus() {
 	}
 }
 
-void alarm(struct tm *timeNow) {
-	if(alarmStatus) {
-   		if(eqHM(&alarmTime, timeNow) && alarmStatus!=ON) alarmStatus = ON;
-		if(alarmStatus==ON) {
+char timeForAlarm(struct tm *time, struct alarm *thisAlarm) {
+	return ((*time).tm_hour==(*thisAlarm).tm_hour && (*time).tm_min==(*thisAlarm).tm_min) ? 1 : 0;
+}
+
+void alarm(struct tm *timeNow, struct alarm *thisAlarm) {
+	if( (*thisAlarm).status ) {
+   		if(timeForAlarm(timeNow, thisAlarm) && (*thisAlarm).status==SET) {
+   			(*thisAlarm).status = ON;	
+		}
+		if( (*thisAlarm).status==ON ) {
 			Beep(750, 250); 
 			Sleep(250);	
 		}
