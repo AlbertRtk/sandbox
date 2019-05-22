@@ -33,21 +33,26 @@ int main (void) {
    		if(kbhit()) {
    			option = getch();
    			switch(option){
-   				case 'a':	
+   				case 'm':
+   					incrAlarm(myAlarm, 0, 5);
+   					break;
+   				case 'h':
+   					incrAlarm(myAlarm, 1, 0);
+   					break;
+   				case 's':	
    					toggleAlarm(myAlarm);
    					break;
+   				case 'q':
+   					return(0);
     	    }
 		}
 		
    		alarm(locTime, myAlarm);
    }
-   
-   return(0);
 }
 
 /*
 TODO ideas:
-- set alarm time
 - display 'hello message'
 - save/read hello message to/from file
 */
