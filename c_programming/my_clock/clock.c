@@ -5,12 +5,17 @@
 #include "alarm.h"
 
 
+char *getstr();
+
+
 int main (void) {
    time_t eTime;			// time from Epoch
    struct tm *locTime;		// structure holding readable time info
    struct alarm alarm_1;
    struct alarm *myAlarm = &alarm_1;
    char option; 
+   char *helloMsg = NULL;
+   int showMsg = 0;
    
    setAlarm(myAlarm, 7, 0, OFF);
    
@@ -33,22 +38,48 @@ int main (void) {
    		if(kbhit()) {
    			option = getch();
    			switch(option){
-   				case 'm':
-   					incrAlarm(myAlarm, 0, 5);
+   				case 'm':	// alarm minut + 5
+   					incrAlarm(myAlarm, 0, 1);
    					break;
-   				case 'h':
+   				case 'h':	// alarm hour +1
    					incrAlarm(myAlarm, 1, 0);
    					break;
    				case 's':	
    					toggleAlarm(myAlarm);
    					break;
-   				case 'q':
+   				case 't':
+   					printf("\nEnter your hello message:\n");
+   					helloMsg = getstr();
+   					break;
+   				case 'q':	// quit the program
    					return(0);
+   				default:
+   					;	// random key pressed - do nothing
     	    }
 		}
 		
-   		alarm(locTime, myAlarm);
+   		showMsg = alarm(locTime, myAlarm);
+   		if(showMsg) {
+   			printf(helloMsg);	
+		}
    }
+}
+
+
+char *getstr() {
+	char *str, ch;
+	int i = 1;
+	str = (char*)malloc(sizeof(char));
+	
+	while(ch!='\n') {
+		ch = getc(stdin);
+		str = (char*)realloc(str, (i+1)*sizeof(char));	// (i+1) - length of string, one place extra for '\0'
+		str[i-1] = ch;
+		i++;
+	}
+	str[i-1] = '\0';	// end of string
+	
+	return str;
 }
 
 /*

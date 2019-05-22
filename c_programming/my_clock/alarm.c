@@ -2,19 +2,19 @@
 #include "alarm.h"
 
 
-void incrAlarm(struct alarm *thisAlarm, char dh, char dm) {
+void incrAlarm(struct alarm *thisAlarm, int dh, int dm) {
 	if(dh) {
-		(*thisAlarm).tm_hour += (int) dh;
+		(*thisAlarm).tm_hour += dh;
 	}
 	if(dm) {
-		(*thisAlarm).tm_min += (int) dm;
+		(*thisAlarm).tm_min += dm;
 	}
 	normTime(&(*thisAlarm).tm_hour, 24);
 	normTime(&(*thisAlarm).tm_min, 60);
 }
 
 
-void normTime(int *toNorm, char norm) {
+void normTime(int *toNorm, int norm) {
 	if(*toNorm>=norm) {
 		*toNorm -= norm;	// e.g., 24 --> 0, for norm=24
 	}
@@ -24,10 +24,10 @@ void normTime(int *toNorm, char norm) {
 }
 
 
-void setAlarm(struct alarm *thisAlarm, char hour, char minute, char status) {
+void setAlarm(struct alarm *thisAlarm, int hour, int minute, char status) {
 	(*thisAlarm).status = status;
-	(*thisAlarm).tm_hour = (int) hour;
-	(*thisAlarm).tm_min = (int) minute;
+	(*thisAlarm).tm_hour = hour;
+	(*thisAlarm).tm_min = minute;
 }
 
 
@@ -53,7 +53,7 @@ char timeForAlarm(struct tm *time, struct alarm *thisAlarm) {
 }
 
 
-void alarm(struct tm *timeNow, struct alarm *thisAlarm) {
+int alarm(struct tm *timeNow, struct alarm *thisAlarm) {
 	if( (*thisAlarm).status ) {
    		if(timeForAlarm(timeNow, thisAlarm) && (*thisAlarm).status==SET) {
    			(*thisAlarm).status = ON;	
@@ -61,7 +61,9 @@ void alarm(struct tm *timeNow, struct alarm *thisAlarm) {
 		if( (*thisAlarm).status==ON ) {
 			Beep(750, 250); 
 			Sleep(250);	
+			return 1;
 		}
 	}
+	return 0;
 }
 

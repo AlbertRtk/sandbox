@@ -14,14 +14,14 @@ struct alarm {
 };
 
 /* increments alarm time by given number of hours and minutes*/
-void incrAlarm(struct alarm *, char, char);
+void incrAlarm(struct alarm *, int, int);
 
 /* takes care that 1st number (int *) is in the range 
 from 0 (including) to 2nd number (char) (excluding) */
-void normTime(int *, char);
+void normTime(int *, int);
 
 /*function setting given alarm time, and status to SET */
-void setAlarm(struct alarm *, char, char, char);
+void setAlarm(struct alarm *, int, int, char);
 
 /* function toggles alarm state */
 void toggleAlarm(struct alarm *);
@@ -35,6 +35,6 @@ char timeForAlarm(struct tm *, struct alarm *);
 
 /* rings an alarm when set time is reached and status is 1 or 2;
 if status is 1, sets it to 2 when the alarm time is reached */
-void alarm(struct tm *, struct alarm *);
+int alarm(struct tm *, struct alarm *);
 
 #endif
