@@ -16,23 +16,30 @@ int main (void) {
    char option; 
    char *helloMsg = NULL;
    int showMsg = 0;
+   FILE *fp;
    
    setAlarm(myAlarm, 7, 0, OFF);
    
-   printf("Date:\t\tCurrent time:\t\tAlarm time:\tAtarm state:\n");
+   //printf("Date:\t\tCurrent time:\t\tAlarm time:\tAtarm state:\n");
    while(1) {
    		/* get time from epoch and recalculate it to local time */
    		eTime = time( NULL );
    		locTime = localtime( &eTime );
    		
    		/* printing the time */
-   		printf(	
-		   		"\r%4d-%02d-%02d\t%02d:%02d:%02d\t\t%02d:%02d\t\t%s", 
+   		if( showMsg && (*helloMsg) ) {
+   			printf("\r%s. It is %02d:%02d:%02d", helloMsg, (*locTime).tm_hour, (*locTime).tm_min, (*locTime).tm_sec);
+		}
+		else {
+			printf(	
+		   		"\r%4d-%02d-%02d\t%02d:%02d:%02d\tAlarm: %02d:%02d\t%s", 
 				(*locTime).tm_year+1900, (*locTime).tm_mon+1, (*locTime).tm_mday,
 		   		(*locTime).tm_hour, (*locTime).tm_min, (*locTime).tm_sec,
 		   		(*myAlarm).tm_hour, (*myAlarm).tm_min,
 		   		getAlarmStatus(myAlarm)
-		);
+			);
+		}
+   		
    		fflush(stdout);
    		
    		if(kbhit()) {
@@ -48,8 +55,15 @@ int main (void) {
    					toggleAlarm(myAlarm);
    					break;
    				case 't':
-   					printf("\nEnter your hello message:\n");
+   					system("cls");
+   					printf("Enter your hello message:\n");
    					helloMsg = getstr();
+   					fp = fopen("msg.txt", "w");
+   					if(fp!=NULL) {
+   						fprintf(fp, "%s", helloMsg);
+   						fclose(fp);
+					   }
+   					system("cls");
    					break;
    				case 'q':	// quit the program
    					return(0);
@@ -59,9 +73,6 @@ int main (void) {
 		}
 		
    		showMsg = alarm(locTime, myAlarm);
-   		if(showMsg) {
-   			printf(helloMsg);	
-		}
    }
 }
 

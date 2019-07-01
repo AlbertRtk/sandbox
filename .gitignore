@@ -9,3 +9,5 @@ pch.cpp
 *.user
 
 *.exe
+
+msg.txt
