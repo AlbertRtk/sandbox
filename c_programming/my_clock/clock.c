@@ -6,7 +6,7 @@
 
 
 char *getstr();
-
+char *readfile(FILE*);
 
 int main (void) {
    time_t eTime;			// time from Epoch
@@ -20,6 +20,12 @@ int main (void) {
    
    setAlarm(myAlarm, 7, 0, OFF);
    
+   fp = fopen("msg.txt", "r");
+   if(fp!=NULL) {
+   		helloMsg = readfile(fp);
+   		fclose(fp);
+		}
+   
    //printf("Date:\t\tCurrent time:\t\tAlarm time:\tAtarm state:\n");
    while(1) {
    		/* get time from epoch and recalculate it to local time */
@@ -28,7 +34,7 @@ int main (void) {
    		
    		/* printing the time */
    		if( showMsg && (*helloMsg) ) {
-   			printf("\r%s. It is %02d:%02d:%02d", helloMsg, (*locTime).tm_hour, (*locTime).tm_min, (*locTime).tm_sec);
+   			printf("\r%s It is %02d:%02d:%02d                               ", helloMsg, (*locTime).tm_hour, (*locTime).tm_min, (*locTime).tm_sec);
 		}
 		else {
 			printf(	
@@ -82,19 +88,33 @@ char *getstr() {
 	int i = 1;
 	str = (char*)malloc(sizeof(char));
 	
+	ch = getc(stdin);
 	while(ch!='\n') {
-		ch = getc(stdin);
 		str = (char*)realloc(str, (i+1)*sizeof(char));	// (i+1) - length of string, one place extra for '\0'
 		str[i-1] = ch;
 		i++;
+		ch = getc(stdin);
 	}
 	str[i-1] = '\0';	// end of string
 	
 	return str;
 }
 
-/*
-TODO ideas:
-- display 'hello message'
-- save/read hello message to/from file
-*/
+
+char *readfile(FILE *fp){
+	char *str, ch;
+	int i = 1;
+	str = (char*)malloc(sizeof(char));
+	
+	ch = fgetc(fp);  // reading the first character
+	while(ch!=EOF) {
+		str = (char*)realloc(str, (i+1)*sizeof(char));	// changing length of string
+		str[i-1] = ch;
+		i++;
+		ch = fgetc(fp);
+	}
+	str[i-1] = '\0';	// changing new line '\n' to end of string '\0'
+	
+	return str;
+}
+
